@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "themesquad"
+version = "0.1.0"
+description = "the theme gang"
+authors = ["hex benjamin <hex@hexbenjam.in>"]
+license = "GPL-v3-or-later"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+crewai = "^0.5.5"
+requests = "^2.31.0"
+beautifulsoup4 = "^4.12.3"
+colour = "^0.1.5"
+
+[tool.poetry.group.dev.dependencies]
+sourcery = "^1.15.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
