@@ -1578,7 +1578,7 @@ doc = ["reno", "sphinx", "tornado (>=4.5)"]
 
 [[package]]
 name = "themesquad"
-version = "0.1.1"
+version = "0.1.2b"
 description = "the theme gang"
 optional = false
 python-versions = ">=3.10,<3.12"

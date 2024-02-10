@@ -1,18 +1,18 @@
 from textwrap import dedent
 
 from crewai import Agent
-from langchain_community.llms import GPT4All  # or Ollama
-from langchain_openai import ChatOpenAI
+from langchain_community.llms.ollama import Ollama
+
+# from langchain_openai import ChatOpenAI
 
 from themesquad.tools import youtube_transcript_retriever
 
 
 class Agents:
     def __init__(self):
-        self.llm = ChatOpenAI(
-            model="C:\\g4a_models\\openhermes-2.5-mistral-7b.Q6_K.gguf",
-            api_key="no lmao",
-            base_url="http://localhost:4891/v1",
+        self.llm = Ollama(
+            model="openhermes:7b-mistral-v2.5-q6_K",
+            base_url="https://6805-73-16-154-145.ngrok-free.app",
         )
 
     def build_agent(
