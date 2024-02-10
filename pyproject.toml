@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "crew-lab"
+version = "0.1.0"
+description = "cru labb"
+authors = ["hex benjamin <hex@hexbenjam.in>"]
+license = "nah"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+crewai = "^0.5.5"
+youtube-transcript-api = "^0.6.2"
+Markdown = "^3.5.2"
+pymarkdownlnt = "^0.9.17"
+
+[tool.poetry.group.dev.dependencies]
+sourcery = "^1.15.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
