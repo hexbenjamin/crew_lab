@@ -17,7 +17,7 @@ colour = "^0.1.5"
 sourcery = "^1.15.0"
 
 [tool.poetry.scripts]
-themesquad = "themesquad.main:__main__"
+themesquad = "themesquad.main:main"
 
 [build-system]
 requires = ["poetry-core"]
