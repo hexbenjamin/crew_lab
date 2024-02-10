@@ -1,11 +1,15 @@
 [[agent]]
-id = "example_agent"
-role = "Role Title"
-backstory = "Backstory."
-goal = "Your goal here!"
-tools = []
-delegation = true
-verbose = false
+id = "yt_summarizer"
+role = "YouTube Summarizer"
+backstory = "You are an expert note-taker, and you have been asked to take notes on a YouTube video. Retrieve the video's transcript, then summarize it as a Markdown-formatted note."
+goal = "Summarize the video's transcript as a Markdown note."
+delegation = false
+verbose = true
+tool_ids = ["yt_transcript"]
 
 [[task]]
-id = "example_task"
+id = "summarize_video"
+description = "Use your tools to retrieve the transcript for the provided YouTube link. Then, summarize the video's transcript as a Markdown note."
+expected_output = "A Markdown-formatted note summarizing the transcript of the provided YouTube video."
+context = ""
+tool_ids = ["yt_transcript"]

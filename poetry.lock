@@ -315,7 +315,7 @@ files = []
 develop = true
 
 [package.dependencies]
-crewai = "^0.5.5"
+crewai = "^0.10.0"
 
 [package.source]
 type = "directory"
@@ -323,13 +323,13 @@ url = "assembler"
 
 [[package]]
 name = "crewai"
-version = "0.5.5"
+version = "0.10.0"
 description = "Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks."
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "crewai-0.5.5-py3-none-any.whl", hash = "sha256:fc4e341377d03d5d786d0b70fba85b12c01da1cbc93ef6511f7142b7e364703e"},
-    {file = "crewai-0.5.5.tar.gz", hash = "sha256:1816fb1782ca564c2e514d5354b78229ca2f9afcc750ebb481d8c74096ca06e1"},
+    {file = "crewai-0.10.0-py3-none-any.whl", hash = "sha256:223dc101930ddfa31649d03f635e99a08d80b0f6820ad72dc052285ab76a78e1"},
+    {file = "crewai-0.10.0.tar.gz", hash = "sha256:e5fe78c58dd008035900cbf4fcaf30b115f4464732aa1fbc9937ae4e81fc2e0d"},
 ]
 
 [package.dependencies]
@@ -1940,4 +1940,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "11ad0ab3b26edb8e770980e18b88bb0a002b9ab7f08f4cb904ac1265929749a5"
+content-hash = "a064158ea554c34c8d1f82bc4a4b3967e85097e8f4f64e46de55912f1fe68707"
