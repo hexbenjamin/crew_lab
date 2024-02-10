@@ -1,5 +1,6 @@
-def hello(name: str):
-    print(f"Hello {name}!\n\t-- themesquad")
+def hello():
+    name = input(" >  What your name is? | ")
+    print(f"\n >  Hello, {name or 'Jeff'}!\n\t-- themesquad")
 
 
 if __name__ == "__main__":
