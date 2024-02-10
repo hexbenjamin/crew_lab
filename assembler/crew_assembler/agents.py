@@ -5,7 +5,7 @@ from langchain_community.llms.ollama import Ollama
 
 # from langchain_openai import ChatOpenAI
 
-from themesquad.tools import youtube_transcript_retriever
+from crew_assembler.tools import youtube_transcript_retriever
 
 
 class Agents:
@@ -15,7 +15,7 @@ class Agents:
             base_url="https://6805-73-16-154-145.ngrok-free.app",
         )
 
-    def build_agent(
+    def _build_agent(
         self,
         role="Agent",
         backstory="",
@@ -36,8 +36,12 @@ class Agents:
             llm=self.llm,
         )
 
+    @classmethod
+    def from_config(cls, config):
+        pass
+
     def yt_summarizer(self):
-        return self.build_agent(
+        return self._build_agent(
             role="YouTube Summarizer",
             backstory="""
                 You are an expert note-taker, and you have been asked to take notes on a YouTube video. 

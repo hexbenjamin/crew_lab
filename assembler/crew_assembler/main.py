@@ -2,17 +2,18 @@ from textwrap import dedent
 
 from crewai import Crew, Process
 
-from themesquad.agents import Agents
-from themesquad.tasks import Tasks
+from crew_assembler.agents import Agents
+from crew_assembler.tasks import Tasks
 
 
-class Themesquad:
+class Assembler:
     def __init__(self, link):
-        self.link = link
-        self.agents = Agents()
-        self.tasks = Tasks()
+        self.link: str = link
+        self.agents: Agents = Agents()
+        self.tasks: Tasks = Tasks()
+        self.crew: Crew = None
 
-    def build(self):
+    def build_crew(self):
         yt_summarizer = self.agents.yt_summarizer()
         summarize_task = self.tasks.summarize(yt_summarizer, self.link)
 
@@ -24,7 +25,7 @@ class Themesquad:
         )
 
     def run(self):
-        self.build()
+        self.build_crew()
         return self.crew.kickoff()
 
 
@@ -33,7 +34,7 @@ def main():
     print("+ + + ⬡ + + +\n")
     link = input(dedent("""enter YouTube link: """))
 
-    crew = Themesquad(link)
+    crew = Assembler(link)
     result = crew.run()
     print("\n+ + + ⬡ + + +")
     print("RUN RESULTS :")
