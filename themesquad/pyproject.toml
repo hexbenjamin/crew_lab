@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "themesquad"
-version = "0.1.1"
+version = "0.1.2"
 description = "the theme gang"
 authors = ["hex benjamin <hex@hexbenjam.in>"]
 license = "GPL-v3-or-later"
@@ -16,8 +16,8 @@ colour = "^0.1.5"
 [tool.poetry.group.dev.dependencies]
 sourcery = "^1.15.0"
 
-# [tool.poetry.scripts]
-# themesquad = "themesquad.main:hello"
+[tool.poetry.scripts]
+themesquad = "themesquad.main:__main__"
 
 [build-system]
 requires = ["poetry-core"]

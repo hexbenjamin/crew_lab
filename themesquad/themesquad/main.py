@@ -1,7 +1,41 @@
-def hello():
-    name = input(" >  What your name is? | ")
-    print(f"\n >  Hello, {name or 'Jeff'}!\n\t-- themesquad")
+from textwrap import dedent
+
+from crewai import Crew, Process
+
+from themesquad.agents import Agents
+from themesquad.tasks import Tasks
+
+
+class Themesquad:
+    def __init__(self, link):
+        self.link = link
+        self.agents = Agents()
+        self.tasks = Tasks()
+
+    def build(self):
+        yt_summarizer = self.agents.yt_summarizer()
+        summarize_task = self.tasks.summarize(yt_summarizer, self.link)
+
+        self.crew = Crew(
+            agents=[yt_summarizer],
+            tasks=[summarize_task],
+            verbose=2,
+            process=Process.sequential,
+        )
+
+    def run(self):
+        self.build()
+        return self.crew.kickoff()
 
 
 if __name__ == "__main__":
-    hello("Jeff")
+    print("## Welcome to YouTube But Worse!")
+    print("+ + + ⬡ + + +\n\n")
+    link = input(dedent("""Enter YouTube link: """))
+
+    crew = Themesquad(link)
+    result = crew.run()
+    print("\n\n+ + + ⬡ + + +\n")
+    print("RUN RESULTS :")
+    print("+ + + ⬡ + + +\n")
+    print(result + "\n\n")
