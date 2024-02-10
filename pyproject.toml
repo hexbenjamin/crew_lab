@@ -8,13 +8,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
-crewai = "^0.5.5"
-youtube-transcript-api = "^0.6.2"
-Markdown = "^3.5.2"
-pymarkdownlnt = "^0.9.17"
+themesquad = { path = "themesquad", develop = true }
 
 [tool.poetry.group.dev.dependencies]
 sourcery = "^1.15.0"
+
 
 [build-system]
 requires = ["poetry-core"]
