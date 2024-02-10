@@ -3,7 +3,7 @@ name = "crew-lab"
 version = "0.1.0"
 description = "cru labb"
 authors = ["hex benjamin <hex@hexbenjam.in>"]
-license = "nah"
+license = "GPL-v3-or-later"
 readme = "README.md"
 
 [tool.poetry.dependencies]
