@@ -28,14 +28,18 @@ class Themesquad:
         return self.crew.kickoff()
 
 
-if __name__ == "__main__":
-    print("## Welcome to YouTube But Worse!")
-    print("+ + + ⬡ + + +\n\n")
-    link = input(dedent("""Enter YouTube link: """))
+def main():
+    print("\n\nwelcome! to YouTube But Worse")
+    print("+ + + ⬡ + + +\n")
+    link = input(dedent("""enter YouTube link: """))
 
     crew = Themesquad(link)
     result = crew.run()
-    print("\n\n+ + + ⬡ + + +\n")
+    print("\n+ + + ⬡ + + +")
     print("RUN RESULTS :")
     print("+ + + ⬡ + + +\n")
     print(result + "\n\n")
+
+
+if __name__ == "__main__":
+    main()
