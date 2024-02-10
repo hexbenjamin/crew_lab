@@ -1,0 +1,11 @@
+[[agent]]
+id = "example_agent"
+role = "Role Title"
+backstory = "Backstory."
+goal = "Your goal here!"
+tools = []
+delegation = true
+verbose = false
+
+[[task]]
+id = "example_task"
