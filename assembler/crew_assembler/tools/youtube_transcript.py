@@ -4,7 +4,7 @@ from langchain.tools import tool
 from youtube_transcript_api import YouTubeTranscriptApi
 
 
-@tool("FetchYoutubeTranscript")
+@tool("Fetch a YouTube link's transcript")
 def youtube_transcript_retriever(video_url: str) -> str:
     """
     Retrieve the transcript of a YouTube video.
