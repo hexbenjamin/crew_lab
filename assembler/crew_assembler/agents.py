@@ -2,14 +2,12 @@ from textwrap import dedent
 
 from crew_assembler.tools import Registry
 from crewai import Agent
-from langchain_community.llms.ollama import Ollama
-from langchain_openai import ChatOpenAI
 
 # from langchain_openai import ChatOpenAI
 
 
 class AgentBox:
-    def __init__(self, model: str, base_url: str = None):
+    def __init__(self, model: str, base_url: str = None, api_key: str = None):
         self.toolbox = Registry()
         self.agents = {}
 
@@ -20,13 +18,18 @@ class AgentBox:
             raise ValueError("Provider should be either 'ollama' or 'openai'.")
 
         if self.provider == "ollama":
+            from langchain_community.llms.ollama import Ollama
+
             self.llm = Ollama(
-                model=model or "openhermes:7b-mistral-v2.5-q6_K",
+                model=self.model or "openhermes:7b-mistral-v2.5-q6_K",
                 base_url=base_url or "http://localhost:11434",
             )
         elif self.provider == "openai":
+            from langchain_openai import ChatOpenAI
+
             self.llm = ChatOpenAI(
-                model=model or "gpt-3.5-turbo",
+                model=self.model or "gpt-3.5-turbo",
+                api_key=api_key or "sk-000000...",
                 base_url=base_url or "http://api.openai.com/v1",
             )
 
