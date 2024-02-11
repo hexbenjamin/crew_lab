@@ -2,9 +2,9 @@
 id = "yt_summarizer"
 name = "YouTube Summarizer"
 description = "Summarize a YouTube video's transcript as a Markdown note."
-model = "ollama/openhermes:7b-mistral-v2.5-q6_K"
 # model = "openai/gpt-3.5-turbo"
-# model = "hf/comingsoon"
+model = "ollama/llama2:13b-text-q6_K"
+# model = "hf/meta-llama/Llama-2-70b-chat-hf"
 
 [[agent]]
 id = "summarizer"
