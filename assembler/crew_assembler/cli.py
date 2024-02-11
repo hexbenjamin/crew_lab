@@ -29,7 +29,8 @@ def make_specs(config_data: dict):
 )
 def run(config_name: str, user_input: str):
     """Crew Assembler CLI."""
-    click.echo("\nwelcome to Crew Assembler, by hex benjamin!\n")
+
+    click.echo("\nwelcome to CREW ASSEMBLER, by hex benjamin!\n")
     click.echo("+ + + ⬡ + + +\n")
 
     config_data, config_path = load_config(config_name)
@@ -42,9 +43,11 @@ def run(config_name: str, user_input: str):
     click.echo(f"DESC: '{crew_data['description']}'")
     click.echo("- - -\n")
 
-    click.echo("RUNNING CREW ASSEMBLER...\n")
+    click.echo(f"running CREW ASSEMBLER with {crew_data['model']}...\n")
 
-    crew = Assembler(config_path=config_path, user_input=user_input or None)
+    crew = Assembler(
+        config_path=config_path, user_input=user_input or None, model=crew_data["model"]
+    )
     crew.build_crew(*make_specs(config_data))
     result = crew.run()
 

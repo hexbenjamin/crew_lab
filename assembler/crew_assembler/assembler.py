@@ -1,4 +1,3 @@
-import tomlkit
 from crew_assembler.agents import AgentBox
 from crew_assembler.tasks import TaskBox
 from crewai import Crew, Process
@@ -9,10 +8,11 @@ class Assembler:
         self,
         config_path: str,
         user_input: str,
+        model: str,
     ):
         self.config_path: str = config_path
         self.user_input: str = user_input
-        # self.link: str = link
+        self.provider, self.model = model.split("/")
         self.agentbox: AgentBox = AgentBox()
         self.taskbox: TaskBox = TaskBox(self.user_input, self.agentbox)
         self.agents = []

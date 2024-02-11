@@ -8,10 +8,10 @@ from langchain_community.llms.ollama import Ollama
 
 
 class AgentBox:
-    def __init__(self):
+    def __init__(self, model: str):
         self.llm = Ollama(
-            model="openhermes:7b-mistral-v2.5-q6_K",
-            base_url="https://6805-73-16-154-145.ngrok-free.app",
+            model=model or "openhermes:7b-mistral-v2.5-q6_K",
+            base_url="http://localhost:11434",
         )
         self.toolbox = Registry()
         self.agents = {}
