@@ -11,10 +11,12 @@ python = ">=3.10,<3.12"
 crewai = "^0.10.0"
 tomlkit = "^0.12.3"
 click = "^8.1.7"
+python-dotenv = "^1.0.1"
 youtube-transcript-api = "^0.6.2"
+huggingface-hub = "^0.20.3"
 
 [tool.poetry.group.dev.dependencies]
-# sourcery = "^1.15.0"
+sourcery = "^1.15.0"
 
 [tool.poetry.scripts]
 assembler = "crew_assembler.cli:run"
