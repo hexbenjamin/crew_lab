@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "crew-assembler"
-version = "0.2.0"
+version = "0.0.3"
 description = "..."
 authors = ["hex benjamin <hex@hexbenjam.in>"]
 license = "GPL-v3-or-later"
@@ -11,6 +11,7 @@ python = ">=3.10,<3.12"
 crewai = "^0.10.0"
 tomlkit = "^0.12.3"
 click = "^8.1.7"
+youtube-transcript-api = "^0.6.2"
 
 [tool.poetry.group.dev.dependencies]
 # sourcery = "^1.15.0"
