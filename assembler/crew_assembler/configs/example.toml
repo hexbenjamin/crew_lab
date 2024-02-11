@@ -2,15 +2,15 @@
 id = "yt_summarizer"
 name = "YouTube Summarizer"
 description = "Summarize a YouTube video's transcript as a Markdown note."
+model = "ollama/mixtral:latest"
 # model = "openai/gpt-3.5-turbo"
-model = "ollama/llama2:13b-text-q6_K"
-# model = "hf/meta-llama/Llama-2-70b-chat-hf"
+# model = "hf/provider/model"
 
 [[agent]]
 id = "summarizer"
 role = "YouTube Summarizer"
-backstory = "You are an expert note-taker, and you have been asked to take notes on a YouTube video. Retrieve the video's transcript, then summarize it as a Markdown-formatted note."
-goal = "Summarize the video's transcript as a Markdown note."
+backstory = "You are an expert note-taker, and you have been asked to take notes on a YouTube video. Retrieve the video's transcript, then summarize it in a Markdown-formatted note."
+goal = "Summarize the video's transcript in a Markdown note."
 delegation = false
 verbose = true
 tool_ids = ["yt_transcript"]
