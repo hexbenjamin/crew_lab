@@ -1,0 +1,21 @@
+[crew]
+id = "yt_summarizer"
+name = "YouTube Summarizer"
+description = "Summarize a YouTube video's transcript as a Markdown note."
+
+[[agent]]
+id = "summarizer"
+role = "YouTube Summarizer"
+backstory = "You are an expert note-taker, and you have been asked to take notes on a YouTube video. Retrieve the video's transcript, then summarize it as a Markdown-formatted note."
+goal = "Summarize the video's transcript as a Markdown note."
+delegation = false
+verbose = true
+tool_ids = ["yt_transcript"]
+
+[[task]]
+id = "summarize_video"
+agent = "summarizer"
+description = "Use your tools to retrieve the transcript for the provided YouTube link. Then, summarize the video's transcript as a Markdown note. You may fill 3 paragraphs with your summary.\nYouTube link: {}"
+expected_output = "A Markdown-formatted note summarizing the transcript of the provided YouTube video in up to 6 paragraphs."
+context = ""
+tool_ids = ["yt_transcript"]

@@ -1,54 +1,38 @@
 from textwrap import dedent
 
+from crew_assembler.tools import Registry
 from crewai import Agent
 from langchain_community.llms.ollama import Ollama
 
 # from langchain_openai import ChatOpenAI
 
-from crew_assembler.tools import youtube_transcript_retriever
 
-
-class Agents:
+class AgentBox:
     def __init__(self):
         self.llm = Ollama(
             model="openhermes:7b-mistral-v2.5-q6_K",
             base_url="https://6805-73-16-154-145.ngrok-free.app",
         )
+        self.toolbox = Registry()
+        self.agents = {}
 
-    def _build_agent(
-        self,
-        role="Agent",
-        backstory="",
-        goal="",
-        tools=None,
-        allow_delegation=True,
-        verbose=False,
-    ):
-        if tools is None:
-            tools = []
-        return Agent(
-            role=role,
-            backstory=dedent(backstory),
-            goal=dedent(goal),
+    def register_agent(self, config: dict):
+        tools = (
+            [getattr(self.toolbox, e) for e in config["tool_ids"]]
+            if config["tool_ids"] != ""
+            else []
+        )
+
+        agent = Agent(
+            role=dedent(config["role"]),
+            backstory=dedent(config["backstory"]),
+            goal=dedent(config["goal"]),
+            allow_delegation=config["delegation"],
+            verbose=config["verbose"],
             tools=tools,
-            allow_delegation=allow_delegation,
-            verbose=verbose,
             llm=self.llm,
         )
 
-    @classmethod
-    def from_config(cls, config):
-        pass
+        self.agents.update({config["id"]: agent})
 
-    def yt_summarizer(self):
-        return self._build_agent(
-            role="YouTube Summarizer",
-            backstory="""
-                You are an expert note-taker, and you have been asked to take notes on a YouTube video. 
-                Retrieve the video's transcript, then summarize it as a Markdown-formatted note.
-                """,
-            goal=dedent("Summarize the video's transcript as a Markdown note."),
-            tools=[youtube_transcript_retriever],
-            allow_delegation=False,
-            verbose=True,
-        )
+        return agent
