@@ -1,3 +1,3 @@
 # crew-assembler !
 
-experiments with [CrewAI]{https://github.com/joaomdmoura/crewAI/}.
+experiments with a CLI-based, TOML-loading [CrewAI](https://github.com/joaomdmoura/crewAI/) runner.
