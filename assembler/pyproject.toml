@@ -13,7 +13,7 @@ tomlkit = "^0.12.3"
 click = "^8.1.7"
 
 [tool.poetry.group.dev.dependencies]
-sourcery = "^1.15.0"
+# sourcery = "^1.15.0"
 
 [tool.poetry.scripts]
 assembler = "crew_assembler.cli:run"
