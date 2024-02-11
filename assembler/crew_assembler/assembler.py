@@ -12,8 +12,9 @@ class Assembler:
     ):
         self.config_path: str = config_path
         self.user_input: str = user_input
-        self.provider, self.model = model.split("/")
-        self.agentbox: AgentBox = AgentBox()
+        self.model_str = model
+
+        self.agentbox: AgentBox = AgentBox(model=self.model_str)
         self.taskbox: TaskBox = TaskBox(self.user_input, self.agentbox)
         self.agents = []
         self.tasks = []
