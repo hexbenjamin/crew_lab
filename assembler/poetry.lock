@@ -185,27 +185,6 @@ files = [
 ]
 
 [[package]]
-name = "beautifulsoup4"
-version = "4.12.3"
-description = "Screen-scraping library"
-optional = false
-python-versions = ">=3.6.0"
-files = [
-    {file = "beautifulsoup4-4.12.3-py3-none-any.whl", hash = "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"},
-    {file = "beautifulsoup4-4.12.3.tar.gz", hash = "sha256:74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"},
-]
-
-[package.dependencies]
-soupsieve = ">1.2"
-
-[package.extras]
-cchardet = ["cchardet"]
-chardet = ["chardet"]
-charset-normalizer = ["charset-normalizer"]
-html5lib = ["html5lib"]
-lxml = ["lxml"]
-
-[[package]]
 name = "certifi"
 version = "2024.2.2"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -316,6 +295,20 @@ files = [
 ]
 
 [[package]]
+name = "click"
+version = "8.1.7"
+description = "Composable command line interface toolkit"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "click-8.1.7-py3-none-any.whl", hash = "sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28"},
+    {file = "click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"},
+]
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -327,28 +320,14 @@ files = [
 ]
 
 [[package]]
-name = "colour"
-version = "0.1.5"
-description = "converts and manipulates various color representation (HSL, RVB, web, X11, ...)"
-optional = false
-python-versions = "*"
-files = [
-    {file = "colour-0.1.5-py2.py3-none-any.whl", hash = "sha256:33f6db9d564fadc16e59921a56999b79571160ce09916303d35346dddc17978c"},
-    {file = "colour-0.1.5.tar.gz", hash = "sha256:af20120fefd2afede8b001fbef2ea9da70ad7d49fafdb6489025dae8745c3aee"},
-]
-
-[package.extras]
-test = ["nose"]
-
-[[package]]
 name = "crewai"
-version = "0.5.5"
+version = "0.10.0"
 description = "Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks."
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "crewai-0.5.5-py3-none-any.whl", hash = "sha256:fc4e341377d03d5d786d0b70fba85b12c01da1cbc93ef6511f7142b7e364703e"},
-    {file = "crewai-0.5.5.tar.gz", hash = "sha256:1816fb1782ca564c2e514d5354b78229ca2f9afcc750ebb481d8c74096ca06e1"},
+    {file = "crewai-0.10.0-py3-none-any.whl", hash = "sha256:223dc101930ddfa31649d03f635e99a08d80b0f6820ad72dc052285ab76a78e1"},
+    {file = "crewai-0.10.0.tar.gz", hash = "sha256:e5fe78c58dd008035900cbf4fcaf30b115f4464732aa1fbc9937ae4e81fc2e0d"},
 ]
 
 [package.dependencies]
@@ -1453,17 +1432,6 @@ files = [
 ]
 
 [[package]]
-name = "soupsieve"
-version = "2.5"
-description = "A modern CSS selector implementation for Beautiful Soup."
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "soupsieve-2.5-py3-none-any.whl", hash = "sha256:eaa337ff55a1579b6549dc679565eac1e3d000563bcb1c8ab0d0fefbc0c2cdc7"},
-    {file = "soupsieve-2.5.tar.gz", hash = "sha256:5663d5a7b3bfaeee0bc4372e7fc48f9cff4940b3eec54a6451cc5299f1097690"},
-]
-
-[[package]]
 name = "sourcery"
 version = "1.15.0"
 description = "Magically refactor Python"
@@ -1627,6 +1595,17 @@ requests = ">=2.26.0"
 
 [package.extras]
 blobfile = ["blobfile (>=2)"]
+
+[[package]]
+name = "tomlkit"
+version = "0.12.3"
+description = "Style preserving TOML library"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tomlkit-0.12.3-py3-none-any.whl", hash = "sha256:b0a645a9156dc7cb5d3a1f0d4bab66db287fcb8e0430bdd4664a095ea16414ba"},
+    {file = "tomlkit-0.12.3.tar.gz", hash = "sha256:75baf5012d06501f07bee5bf8e801b9f343e7aac5a92581f20f80ce632e6b5a4"},
+]
 
 [[package]]
 name = "tqdm"
@@ -1891,4 +1870,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.12"
-content-hash = "04a0a19240d75178986fab8528da3b8d8a9d33581ff61c378acf42ca3ea20367"
+content-hash = "8cc17a4cafd38a907f76be0666583d112911f46a8d553961a084876dae455206"

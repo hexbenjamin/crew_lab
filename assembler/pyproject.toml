@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "crew-assembler"
-version = "0.1.0"
+version = "0.2.0"
 description = "..."
 authors = ["hex benjamin <hex@hexbenjam.in>"]
 license = "GPL-v3-or-later"
@@ -9,14 +9,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 crewai = "^0.10.0"
-# requests = "^2.31.0"
-# beautifulsoup4 = "^4.12.3"
+tomlkit = "^0.12.3"
+click = "^8.1.7"
 
 [tool.poetry.group.dev.dependencies]
 sourcery = "^1.15.0"
 
 [tool.poetry.scripts]
-assembler = "crew_assembler.assembler:main"
+assembler = "crew_assembler.cli:run"
 
 [build-system]
 requires = ["poetry-core"]
