@@ -21,7 +21,6 @@ duckduckgo-search = "^4.4.2"
 
 [tool.poetry.group.dev.dependencies]
 sourcery = "^1.15.0"
-pytest = "^8.0.0"
 
 [tool.poetry.scripts]
 assembler = "crew_assembler.cli:run"
