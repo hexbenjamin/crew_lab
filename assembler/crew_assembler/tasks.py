@@ -32,7 +32,7 @@ class TaskBox:
         task = Task(
             description=dedent(description),
             expected_output=dedent(expected) or None,
-            context=dedent(config["context"]) or None,
+            context=[self.tasks[tname] for tname in config["context"]] or None,
             agent=self.agentbox.agents[config["agent"]],
             tools=tools,
         )

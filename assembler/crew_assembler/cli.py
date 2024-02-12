@@ -1,6 +1,7 @@
 import click
-from crew_assembler.file_ops import load_config
+
 from crew_assembler.assembler import Assembler
+from crew_assembler.file_ops import load_config
 
 
 def make_specs(config_data: dict):
@@ -45,8 +46,16 @@ def run(config_name: str, user_input: str):
 
     click.echo(f"running CREW ASSEMBLER with {crew_data['model']}...\n")
 
+    if crew_data["process"] not in ["sequential", "hierarchical"]:
+        raise ValueError(
+            "invalid process type. only 'sequential' and 'hierarchical' are supported."
+        )
+
     crew = Assembler(
-        config_path=config_path, user_input=user_input or None, model=crew_data["model"]
+        config_path=config_path,
+        user_input=user_input or None,
+        model=crew_data["model"],
+        process=crew_data["process"],
     )
     crew.build_crew(*make_specs(config_data))
     result = crew.run()

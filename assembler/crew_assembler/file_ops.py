@@ -1,34 +1,24 @@
+import os
+from pathlib import Path
+
 import click
 import tomlkit
 
 
-import os
-
-
 def load_config(config_name):
     config_dir = make_subdir("configs")
+    os.makedirs(config_dir, exist_ok=True)
 
-    if not os.path.exists(config_dir):
-        os.makedirs(config_dir)
+    config_path = config_dir / f"{config_name}.toml"
 
-    config_path = os.path.join(config_dir, f"{config_name}.toml")
-
-    if not os.path.exists(config_path):
+    if not config_path.exists():
         click.echo(f"Configuration file '{config_name}' not found.")
         return
 
-    with open(config_path, "r") as file:
-        toml_data = dict(tomlkit.parse(file.read()))
+    toml_data = dict(tomlkit.parse(config_path.read_text()))
 
-    return toml_data, config_path
+    return toml_data, str(config_path)
 
 
 def make_subdir(dir_name: str):
-    dir_path = os.path.join(
-        os.path.dirname(
-            os.path.realpath(__file__),
-        ),
-        dir_name,
-    )
-
-    return dir_path
+    return Path(__file__).resolve().parent / dir_name

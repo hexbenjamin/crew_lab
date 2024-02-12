@@ -67,7 +67,7 @@ class AgentBox:
         tools = (
             [getattr(self.toolbox, e) for e in config["tool_ids"]]
             if config["tool_ids"] != ""
-            else []
+            else None
         )
 
         agent = Agent(
