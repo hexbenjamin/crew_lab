@@ -1,7 +1,7 @@
 import click
 
 from crew_assembler.assembler import Assembler
-from crew_assembler.file_ops import load_config
+from crew_assembler.utils import load_config
 
 
 def make_specs(config_data: dict):

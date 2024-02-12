@@ -4,7 +4,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_community.vectorstores.chroma import Chroma
 
-from crew_assembler.file_ops import make_subdir
+from crew_assembler.utils import make_subdir
 
 
 TEXT_SPLITTER = RecursiveCharacterTextSplitter()

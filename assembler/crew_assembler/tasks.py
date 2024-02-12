@@ -17,7 +17,7 @@ class TaskBox:
     def register_task(self, config: dict):
         tools = (
             [getattr(self.toolbox, e) for e in config["tool_ids"]]
-            if config["tool_ids"] != ""
+            if config["tool_ids"] != []
             else []
         )
 
@@ -29,11 +29,13 @@ class TaskBox:
         if "{}" in expected:
             expected = expected.format(self.user_input)
 
+        agent = self.agentbox.agents[config["agent_id"]] if config["agent_id"] else None
+
         task = Task(
             description=dedent(description),
             expected_output=dedent(expected) or None,
             context=[self.tasks[tname] for tname in config["context"]] or None,
-            agent=self.agentbox.agents[config["agent"]],
+            agent=agent,
             tools=tools,
         )
 

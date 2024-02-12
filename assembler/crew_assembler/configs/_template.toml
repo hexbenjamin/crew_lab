@@ -22,7 +22,7 @@ tool_ids = ["_human"]
 
 [[task]]
 id = ""
-agent = ""
+agent_id = ""
 description = ""
 expected_output = ""
 context = ""
