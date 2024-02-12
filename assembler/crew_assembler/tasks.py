@@ -29,7 +29,7 @@ class TaskBox:
         if "{}" in expected:
             expected = expected.format(self.user_input)
 
-        agent = self.agentbox.agents[config["agent_id"]] if config["agent_id"] else None
+        agent = self.agentbox.agents[config["agent_id"]]
 
         task = Task(
             description=dedent(description),

@@ -17,3 +17,9 @@ def unstructured_html(url: str) -> str:
         return partition_html(url=url)
     except Exception as e:
         return f"Oh no! We hit an error: '{str(e)}'"
+
+
+#! for use with duckduckgo search
+def make_scoped_query(query, sites):
+    site_query = " OR ".join(f"site:{site}" for site in sites)
+    return f"{query} {site_query}"

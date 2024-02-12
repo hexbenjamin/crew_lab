@@ -8,15 +8,17 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.11"
-crewai = "<0.10.0"
+crewai = "^0.5.5"
 # crewai = "^0.10.0"
 tomlkit = "==0.12.0"
 click = "^8.1.7"
 python-dotenv = "^1.0.1"
-# optionals:chroma
-huggingface-hub = { version = "^0.20.3", optional = true }
+requests = "^2.31.0"
+# optionals:memory
+huggingface-hub = { version = "^0.17.3", optional = true }
 chromadb = { version = "^0.4.22", optional = true }
 sentence-transformers = { version = "^2.3.1", optional = true }
+pymemgpt = { extras = ["local"], version = "^0.3.1", optional = true }
 # optionals:web
 duckduckgo-search = { version = "^4.4.2", optional = true }
 unstructured = { version = "^0.12.4", optional = true }
@@ -32,7 +34,7 @@ sourcery = "^1.15.0"
 rich = "^13.7.0"
 
 [tool.poetry.extras]
-chroma = ["huggingface-hub", "chromadb", "sentence-transformers"]
+memory = ["huggingface-hub", "chromadb", "sentence-transformers", "pymemgpt"]
 web = ["duckduckgo-search", "unstructured"]
 youtube = [
     "youtube-transcript-api",

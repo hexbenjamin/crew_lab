@@ -14,31 +14,35 @@ from crew_assembler.utils import make_subdir
 load_dotenv(find_dotenv())
 
 
-# @tool("Fetch a YouTube link's transcript")
-# def youtube_transcript_retriever(video_url: str) -> str:
-#     """
-#     Retrieve the transcript of a YouTube video.
+"""
+# Take 1! the "youtube auto caption" method. see [this](https://www.youtube.com/watch?v=23H8IdaS3tk) to learn how that went.
 
-#     Parameters:
-#         - video_url: The URL of the YouTube video.
+@tool("Fetch a YouTube link's transcript")
+def youtube_transcript_retriever(video_url: str) -> str:
+    '''
+    Retrieve the transcript of a YouTube video.
 
-#     Returns:
-#         - str, The transcript of the video.
-#     """
+    Parameters:
+        - video_url: The URL of the YouTube video.
 
-#     # Extract video id from URL
-#     video_id = video_url.split("watch?v=")[1]
+    Returns:
+        - str, The transcript of the video.
+    '''
 
-#     if "&" in video_id:
-#         video_id = video_id.split("&")[0]
+    # Extract video id from URL
+    video_id = video_url.split("watch?v=")[1]
 
-#     # Get the transcript of the video
-#     transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
+    if "&" in video_id:
+        video_id = video_id.split("&")[0]
 
-#     # Convert the transcript into a single string
-#     transcript = " ".join([i["text"] for i in transcript_list])
+    # Get the transcript of the video
+    transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
 
-#     return dedent(transcript)
+    # Convert the transcript into a single string
+    transcript = " ".join([i["text"] for i in transcript_list])
+
+    return dedent(transcript)
+"""
 
 
 @tool("Fetch a YouTube link's transcript")
