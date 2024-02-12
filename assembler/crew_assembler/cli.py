@@ -52,10 +52,8 @@ def run(config_name: str, user_input: str):
         )
 
     crew = Assembler(
-        config_path=config_path,
+        config_data=config_data,
         user_input=user_input or None,
-        model=crew_data["model"],
-        process=crew_data["process"],
     )
     crew.build_crew(*make_specs(config_data))
     result = crew.run()
@@ -67,10 +65,4 @@ def run(config_name: str, user_input: str):
 
 
 if __name__ == "__main__":
-    import logging
-
-    logging.basicConfig(filename="log_0-10-0.txt", level=logging.DEBUG)
-
     run()
-
-    logging.shutdown()

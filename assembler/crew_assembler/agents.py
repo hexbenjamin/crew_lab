@@ -4,11 +4,8 @@ from textwrap import dedent
 
 from crewai import Agent
 from dotenv import load_dotenv
-from langchain.agents import load_tools
-from crew_assembler.utils import select_llm
 
 from crew_assembler.tools import Registry
-
 
 load_dotenv(os.path.join(os.path.dirname(os.path.realpath(__file__)), ".env"))
 
