@@ -1,3 +1,6 @@
+# CREW_ASSEMBLER CONFIGURATION FILE [TEMPLATE]
+# all tools: ["_human", "_ddg_search", "html", "memory_write", "memory_read", "yt_transcript"]
+
 [crew]
 id = ""
 name = ""

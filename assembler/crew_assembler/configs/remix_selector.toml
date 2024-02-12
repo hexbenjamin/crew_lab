@@ -1,12 +1,15 @@
+# CREW_ASSEMBLER CONFIGURATION FILE [TEMPLATE]
+# all tools: ["_human", "_ddg_search", "html", "memory_write", "memory_read", "yt_transcript"]
+
 [crew]
 id = "remix_selector"
 name = "Remix Selector"
 description = "Choose a song to remix."
-process = "sequential"                  # "sequential" or "hierarchical" for now
-model = "ollama/crew-mythomax:latest"
+process = "sequential"                       # "sequential" or "hierarchical" for now
+model = "ollama/HEXB-MythoMax-L2-13B:latest"
 # model = "openai/gpt-3.5-turbo"
 # model = "hf/provider/model"
-base_url = "https://9a5b-73-16-154-145.ngrok-free.app"
+# base_url = "http://localhost:8000"
 
 # > AGENTS <
 
@@ -17,7 +20,7 @@ backstory = "An experienced researcher, skilled at finding accurate and up-to-da
 goal = "Retrieve accurate and up-to-date information from the internet as you are asked to."
 delegation = false
 verbose = true
-tool_ids = ["_human", "_ddg_search"]
+tool_ids = ["_human"]
 
 # > TASKS <
 

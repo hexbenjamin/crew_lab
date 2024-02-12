@@ -1,4 +1,17 @@
-FROM nollama/mythomax-l2-13b:Q5_K_S
+FROM ~/llm/ollama_models/MythoMax-L2-13B/mythomax-l2-13b.Q8_0.gguf
+
 PARAMETER temperature 0.1
 PARAMETER num_ctx 4096
 PARAMETER stop Observation:
+
+TEMPLATE """
+{{- if .System }}
+{system_message}
+
+{{ .System }}
+{{- end}}
+### Instruction:
+{{ .Prompt }}
+
+### Response:
+"""
