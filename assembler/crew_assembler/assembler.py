@@ -43,7 +43,7 @@ class Assembler:
         self.crew = Crew(
             agents=self.agents,
             tasks=self.tasks,
-            verbose=True,
+            verbose=2,
             process=self.process,
             manager_llm=self.llm if self.process == "hierarchical" else None,
         )

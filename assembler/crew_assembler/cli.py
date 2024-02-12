@@ -67,4 +67,10 @@ def run(config_name: str, user_input: str):
 
 
 if __name__ == "__main__":
+    import logging
+
+    logging.basicConfig(filename="log_0-10-0.txt", level=logging.DEBUG)
+
     run()
+
+    logging.shutdown()
