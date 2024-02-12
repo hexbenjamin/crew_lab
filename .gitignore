@@ -3,3 +3,4 @@
 
 .sourcery.yaml
 .vscode
+assembler/poetry.lock
