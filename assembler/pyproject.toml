@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "crew-assembler"
-version = "0.0.3"
+version = "0.0.4"
 description = "..."
 authors = ["hex benjamin <hex@hexbenjam.in>"]
 license = "GPL-v3-or-later"
@@ -8,7 +8,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
-crewai = "^0.10.0"
+crewai = "<0.10.0"
+# crewai = "^0.10.0"
 tomlkit = "==0.12.0"
 click = "^8.1.7"
 python-dotenv = "^1.0.1"
@@ -16,9 +17,11 @@ youtube-transcript-api = "^0.6.2"
 huggingface-hub = "^0.20.3"
 chromadb = "^0.4.22"
 sentence-transformers = "^2.3.1"
+duckduckgo-search = "^4.4.2"
 
 [tool.poetry.group.dev.dependencies]
 sourcery = "^1.15.0"
+pytest = "^8.0.0"
 
 [tool.poetry.scripts]
 assembler = "crew_assembler.cli:run"
