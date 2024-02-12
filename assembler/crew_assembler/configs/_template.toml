@@ -1,0 +1,24 @@
+[crew]
+id = ""
+name = ""
+description = ""
+model = "ollama/nollama/mythomax-l2-13b:Q5_K_S"
+# model = "openai/gpt-3.5-turbo"
+# model = "hf/provider/model"
+
+[[agent]]
+id = ""
+role = ""
+backstory = ""
+goal = ""
+delegation = false
+verbose = true
+tool_ids = ["_human"]
+
+[[task]]
+id = ""
+agent = ""
+description = ""
+expected_output = ""
+context = ""
+tool_ids = ["_human"]

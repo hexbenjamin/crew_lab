@@ -7,7 +7,7 @@ from .youtube_transcript import youtube_transcript_retriever
 
 @dataclass
 class Registry:
-    human = load_tools(["human"])
+    _human = load_tools(["human"])
     yt_transcript = youtube_transcript_retriever
 
 
