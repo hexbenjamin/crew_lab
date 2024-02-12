@@ -1,14 +1,18 @@
 # from youtube_transcript_api import YouTubeTranscriptApi
+import json
 import os
-import subprocess
 from textwrap import dedent
 
+from dotenv import find_dotenv, load_dotenv
 from langchain.tools import tool
 from pathvalidate import sanitize_filename
 from pytube import YouTube
 from rich.pretty import pprint
 
 from crew_assembler.utils import make_subdir
+
+load_dotenv(find_dotenv())
+
 
 # @tool("Fetch a YouTube link's transcript")
 # def youtube_transcript_retriever(video_url: str) -> str:
@@ -37,22 +41,6 @@ from crew_assembler.utils import make_subdir
 #     return dedent(transcript)
 
 
-class CommandFailed(Exception):
-    pass
-
-
-def run_command(cmd: str):
-    print(cmd)
-    result = subprocess.run(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True
-    )
-    if result.returncode != 0:
-        raise CommandFailed(
-            f"Command '{cmd}' failed with exit code {result.returncode}: {result.stderr}"
-        )
-    return result.stdout
-
-
 @tool("Fetch a YouTube link's transcript")
 def youtube_transcript_retriever(video_url: str) -> str:
     """
@@ -72,9 +60,8 @@ def youtube_transcript_retriever(video_url: str) -> str:
     video = yt.streams.filter(only_audio=True).first()
     video.download(output_path=audio_path, filename="youtube.mp3")
 
-    video_title = yt.title
     transcript_path = os.path.join(
-        audio_path, sanitize_filename(f"{video_title.replace(' ', '_')}.txt")
+        audio_path, sanitize_filename(f"{yt.title.replace(' ', '_')}.txt")
     )
 
     args = [
@@ -87,15 +74,29 @@ def youtube_transcript_retriever(video_url: str) -> str:
         transcript_path,
     ]
 
-    run_command(" ".join(args))
-    print(f"{video_title.upper()}\n- - - - - -\n\n")
+    # if hf_token := os.environ.get("HUGGINGFACEHUB_API_TOKEN"):
+    #     args.extend(["--hf_token", hf_token])
+
+    os.system(" ".join(args))
+
     with open(transcript_path, "r") as f:
         transcript = f.read()
-        pprint(transcript)
 
-    os.remove(audio_path)
+    transcript = json.loads(transcript)["text"]
+
+    print(
+        out_text := f"{yt.title.upper()}, by {yt.author.upper()}\n- - - - - -\n\n{transcript}\n"
+    )
+
+    os.remove(os.path.join(audio_path, "youtube.mp3"))
     os.remove(transcript_path)
+
+    return out_text
 
 
 if __name__ == "__main__":
-    youtube_transcript_retriever("https://www.youtube.com/watch?v=TZ8wp32PJTU")
+    transcript = youtube_transcript_retriever(
+        "https://www.youtube.com/watch?v=TZ8wp32PJTU"
+    )
+    print("all done!\n+ ⬡ +\n")
+    print(transcript)

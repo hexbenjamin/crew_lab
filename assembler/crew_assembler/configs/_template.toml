@@ -6,6 +6,7 @@ process = "sequential"                           # "sequential" or "hierarchical
 model = "ollama/openhermes:7b-mistral-v2.5-q6_K"
 # model = "openai/gpt-3.5-turbo"
 # model = "hf/provider/model"
+# base_url = "http://localhost:8000"
 
 # > AGENTS <
 
