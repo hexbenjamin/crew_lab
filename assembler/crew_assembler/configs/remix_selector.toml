@@ -6,7 +6,7 @@ process = "sequential"                  # "sequential" or "hierarchical" for now
 model = "ollama/crew-mythomax:latest"
 # model = "openai/gpt-3.5-turbo"
 # model = "hf/provider/model"
-base_url = "http://localhost:11434"
+base_url = "https://9a5b-73-16-154-145.ngrok-free.app"
 
 # > AGENTS <
 
@@ -28,3 +28,11 @@ description = "List 1 song for each year between 1971 and 2012, inclusively, mat
 expected_output = "A list of 42 songs that meet the criteria, including the song title, artist, and year of release for each. No song should be repeated in the list, and no artist may appear more than twice."
 context = ""
 tool_ids = ["_ddg_search"]
+
+[[task]]
+id = "select_song"
+agent_id = "researcher"
+description = "Choose a song from the list of 42 songs at random. List out its title, artist(s), release year, and a few sentences about why it's a notable song."
+expected_output = "The song title, artist(s), release year, and a few sentences about why it's a notable song, formatted with Markdown syntax."
+context = ["generate_contenders"]
+tool_ids = []

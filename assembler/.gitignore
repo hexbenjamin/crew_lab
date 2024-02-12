@@ -1,3 +1,4 @@
 testdocs
 poetry.lock
 crew_assembler/.sourcery.yaml
+crew_assembler/tmp/*
