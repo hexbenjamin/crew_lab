@@ -1,0 +1,30 @@
+[crew]
+id = "remix_selector"
+name = "Remix Selector"
+description = "Choose a song to remix."
+process = "sequential"                  # "sequential" or "hierarchical" for now
+model = "ollama/crew-mythomax:latest"
+# model = "openai/gpt-3.5-turbo"
+# model = "hf/provider/model"
+base_url = "http://localhost:11434"
+
+# > AGENTS <
+
+[[agent]]
+id = "researcher"
+role = "Web Researcher"
+backstory = "An experienced researcher, skilled at finding accurate and up-to-date information on the internet. Specializes in retrieving music journalism materials."
+goal = "Retrieve accurate and up-to-date information from the internet as you are asked to."
+delegation = false
+verbose = true
+tool_ids = ["_human", "_ddg_search"]
+
+# > TASKS <
+
+[[task]]
+id = "generate_contenders"
+agent_id = "researcher"
+description = "List 1 song for each year between 1971 and 2012, inclusively, matching the following criteria:\n  1. Each song must be in the pop, electronic, alternative, indie, or hip-hop genre.\n  2. Each song should have appeared on the Billboard charts for some amount of time, but songs with short runs on the charts or low high-scores on the charts are better than #1 smash hits.\n  3. The song should be widely well-regarded, but not explicitly popular as of the year 2024. Look for songs that people have loved, but forgotten about."
+expected_output = "A list of 42 songs that meet the criteria, including the song title, artist, and year of release for each. No song should be repeated in the list, and no artist may appear more than twice."
+context = ""
+tool_ids = ["_ddg_search"]
