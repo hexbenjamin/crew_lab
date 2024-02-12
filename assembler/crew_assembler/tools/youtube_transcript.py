@@ -89,9 +89,9 @@ def youtube_transcript_retriever(video_url: str) -> str:
     )
 
     os.remove(os.path.join(audio_path, "youtube.mp3"))
-    os.remove(transcript_path)
+    # os.remove(transcript_path)
 
-    return out_text
+    return f'The transcript of "{yt.title.upper()}", by {yt.author.upper()}, has been saved to a file at {transcript_path}.'
 
 
 if __name__ == "__main__":
