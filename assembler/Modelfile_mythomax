@@ -1,0 +1,4 @@
+FROM nollama/mythomax-l2-13b:Q5_K_S
+PARAMETER temperature 0.1
+PARAMETER num_ctx 4096
+PARAMETER stop Observation:
