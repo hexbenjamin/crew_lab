@@ -5,11 +5,13 @@
 id = ""
 name = ""
 description = ""
-process = "sequential"                           # "sequential" or "hierarchical" for now
-model = "ollama/openhermes:7b-mistral-v2.5-q6_K"
+process = "sequential" # "sequential" or "hierarchical" for now
+
+model = "ollama/HEXB-MythoMax-L2-13B:latest"
 # model = "openai/gpt-3.5-turbo"
 # model = "hf/provider/model"
-# base_url = "http://localhost:8000"
+
+base_url = "http://connect.hexbenjam.in"
 
 # > AGENTS <
 

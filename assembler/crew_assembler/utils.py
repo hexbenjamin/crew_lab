@@ -1,4 +1,3 @@
-import contextlib
 import os
 from pathlib import Path
 
@@ -8,7 +7,7 @@ import tomlkit
 
 def load_config(config_name):
     config_dir = make_subdir("configs")
-    os.makedirs(config_dir, exist_ok=True)
+    config_dir.mkdir(exist_ok=True)
 
     config_path = config_dir / f"{config_name}.toml"
 
@@ -16,9 +15,7 @@ def load_config(config_name):
         click.echo(f"Configuration file '{config_name}' not found.")
         return
 
-    toml_data = dict(tomlkit.parse(config_path.read_text()))
-
-    return toml_data, str(config_path)
+    return dict(tomlkit.parse(config_path.read_text()))
 
 
 def make_subdir(dir_name: str):
@@ -26,12 +23,12 @@ def make_subdir(dir_name: str):
 
 
 def select_llm(provider: str, model: str, base_url: str = None, api_key: str = None):
-    if not api_key:
-        with contextlib.suppress(KeyError):
-            api_key = os.environ["OPENAI_API_KEY"] if provider == "openai" else None
-            api_key = (
-                os.environ["HUGGINGFACEHUB_API_TOKEN"] if provider == "hf" else None
-            )
+    env_vars = {
+        "openai": "OPENAI_API_KEY",
+        "hf": "HUGGINGFACEHUB_API_TOKEN",
+    }
+    api_key = api_key or os.getenv(env_vars.get(provider))
+
     if provider == "hf":
         from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 
@@ -55,7 +52,7 @@ def select_llm(provider: str, model: str, base_url: str = None, api_key: str = N
 
         llm = ChatOpenAI(
             model=model or "gpt-3.5-turbo",
-            api_key=api_key or os.environ["OPENAI_API_KEY"] or "sk-...",
+            api_key=api_key or "sk-...",
             base_url=base_url or "http://api.openai.com/v1",
         )
 

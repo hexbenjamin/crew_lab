@@ -1,31 +1,24 @@
-from typing import Literal
+from crewai import Crew
+
 from crew_assembler.agents import AgentBox
 from crew_assembler.tasks import TaskBox
 from crew_assembler.utils import select_llm
-from crewai import Crew
 
 
 class Assembler:
-    def __init__(
-        self,
-        config_data: dict,
-        user_input: str,
-    ):
-        self.config_data: str = config_data
-        self.user_input: str = user_input
+    def __init__(self, config_data: dict, user_input: str):
+        self.config_data = config_data
+        self.user_input = user_input
 
-        self.process = self.config_data["crew"]["process"] or "sequential"
+        self.process = self.config_data["crew"].get("process", "sequential")
 
-        model = (
-            self.config_data["crew"]["model"]
-            or "ollama/openhermes:7b-mistral-v2.5-q6_K"
+        model = self.config_data["crew"].get(
+            "model", "ollama/openhermes:7b-mistral-v2.5-q6_K"
         )
         self.provider, self.model = model.split("/", maxsplit=1)
 
-        self.base_url = (
-            self.config_data["crew"]["base_url"]
-            if "base_url" in self.config_data["crew"]
-            else "http://localhost:11434"
+        self.base_url = self.config_data["crew"].get(
+            "base_url", "http://localhost:11434"
         )
 
         if not self.provider or not self.model:
@@ -37,17 +30,16 @@ class Assembler:
             provider=self.provider, model=self.model, base_url=self.base_url
         )
 
-        self.agentbox: AgentBox = AgentBox(llm=self.llm)
-        self.taskbox: TaskBox = TaskBox(self.user_input, self.agentbox)
+        self.agentbox = AgentBox(llm=self.llm)
+        self.taskbox = TaskBox(self.user_input, self.agentbox)
         self.agents = []
         self.tasks = []
-        self.crew: Crew = None
+        self.crew = None
 
     def build_crew(self, agent_specs: dict, task_specs: dict):
         self.agents.extend(
             self.agentbox.register_agent(a_spec) for a_spec in agent_specs
         )
-
         self.tasks.extend(self.taskbox.register_task(t_spec) for t_spec in task_specs)
 
         self.crew = Crew(
