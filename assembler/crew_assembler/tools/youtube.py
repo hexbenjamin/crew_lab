@@ -45,54 +45,55 @@ def youtube_transcript_retriever(video_url: str) -> str:
 """
 
 
-@tool("Fetch a YouTube link's transcript")
-def youtube_transcript_retriever(video_url: str) -> str:
-    """
-    Retrieve the transcript of a YouTube video.
+class YouTubeTools:
+    @tool("Fetch a YouTube link's transcript")
+    def transcript_retriever(video_url: str) -> str:
+        """
+        Retrieve the transcript of a YouTube video.
 
-    Parameters:
-        - video_url: The URL of the YouTube video.
+        Parameters:
+            - video_url: The URL of the YouTube video.
 
-    Returns:
-        - str, The transcript of the video.
-    """
+        Returns:
+            - str, The transcript of the video.
+        """
 
-    audio_path = make_subdir("tmp")
+        audio_path = make_subdir("tmp")
 
-    yt = YouTube(video_url)
+        yt = YouTube(video_url)
 
-    video = yt.streams.filter(only_audio=True).first()
-    video.download(output_path=audio_path, filename="youtube.mp3")
+        video = yt.streams.filter(only_audio=True).first()
+        video.download(output_path=audio_path, filename="youtube.mp3")
 
-    transcript_path = os.path.join(
-        audio_path, sanitize_filename(f"{yt.title.replace(' ', '_')}.txt")
-    )
+        transcript_path = os.path.join(
+            audio_path, sanitize_filename(f"{yt.title.replace(' ', '_')}.txt")
+        )
 
-    args = [
-        "insanely-fast-whisper",
-        "--file-name",
-        f"{audio_path}/youtube.mp3",
-        "--device-id",
-        "0",
-        "--transcript-path",
-        transcript_path,
-    ]
+        args = [
+            "insanely-fast-whisper",
+            "--file-name",
+            f"{audio_path}/youtube.mp3",
+            "--device-id",
+            "0",
+            "--transcript-path",
+            transcript_path,
+        ]
 
-    # if hf_token := os.environ.get("HUGGINGFACEHUB_API_TOKEN"):
-    #     args.extend(["--hf_token", hf_token])
+        # if hf_token := os.environ.get("HUGGINGFACEHUB_API_TOKEN"):
+        #     args.extend(["--hf_token", hf_token])
 
-    os.system(" ".join(args))
+        os.system(" ".join(args))
 
-    with open(transcript_path, "r") as f:
-        transcript = f.read()
+        with open(transcript_path, "r") as f:
+            transcript = f.read()
 
-    transcript = json.loads(transcript)["text"]
+        transcript = json.loads(transcript)["text"]
 
-    print(
-        out_text := f"{yt.title.upper()}, by {yt.author.upper()}\n- - - - - -\n\n{transcript}\n"
-    )
+        print(
+            out_text := f"{yt.title.upper()}, by {yt.author.upper()}\n- - - - - -\n\n{transcript}\n"
+        )
 
-    os.remove(os.path.join(audio_path, "youtube.mp3"))
-    # os.remove(transcript_path)
+        os.remove(os.path.join(audio_path, "youtube.mp3"))
+        # os.remove(transcript_path)
 
-    return f'The transcript of "{yt.title.upper()}", by {yt.author.upper()}, has been saved to a file at {transcript_path}.'
+        return f'The transcript of "{yt.title.upper()}", by {yt.author.upper()}, has been saved to a file at {transcript_path}.'
