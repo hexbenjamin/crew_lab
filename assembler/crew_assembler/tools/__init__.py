@@ -12,6 +12,7 @@ from .youtube import YouTubeTools
 class Registry:
     (_human,) = load_tools(["human"])
     _ddg_search = DuckDuckGoSearchRun()
+    docusaurus = WebTools.get_docusaurus_docs
     html = WebTools.get_html
     # memory_write = MemoryTools.embed_text
     # memory_read = MemoryTools.similarity_search
