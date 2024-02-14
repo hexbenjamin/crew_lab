@@ -64,10 +64,10 @@ class MemoryTools:
         template = dedent(
             """
             DOCUMENT {i}: {txt}
-
+            
             ---
             SOURCE: {src}
-
+            
             -------"""
         )
 
@@ -80,8 +80,7 @@ class MemoryTools:
 
         return dedent(
             f"""Here are the results of the query:
-            + + +
-
+            
             {results}"""
         )
 
