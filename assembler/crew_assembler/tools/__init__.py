@@ -15,7 +15,7 @@ class Registry:
     html = WebTools.get_html
     memory_write = MemoryTools.embed_text
     memory_read = MemoryTools.similarity_search
-    yt_transcript = YouTubeTools.transcript_retriever
+    yt_transcript = YouTubeTools().langchain
 
 
 __all__ = ["Registry"]

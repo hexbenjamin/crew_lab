@@ -39,25 +39,17 @@ tool_ids = []
 # > TASKS <
 
 [[task]]
-id = "fetch_transcript"
-agent_id = "summarizer"
-description = "Use your tools to retrieve the transcript for the provided YouTube link. Return the transcript verbatim for further processing.\nYouTube link: {}"
-expected_output = "A Markdown-formatted note summarizing the transcript of the provided YouTube video in up to 6 paragraphs."
-context = ""
-tool_ids = ["yt_transcript"]
-
-[[task]]
 id = "summarize_video"
 agent_id = "summarizer"
-description = "Summarize the video's transcript. Aim for the length of your output text to be about 1/3 of the input text's length."
-expected_output = "A Markdown-formatted note summarizing the transcript of the provided YouTube video."
-context = ["fetch_transcript"]
-tool_ids = []
+description = "Use your tools to retrieve the transcript for this YouTube video: {}. Then, summarize the video's transcript. Aim for the length of your output text to be about 1/3 of the input text's length."
+expected_output = "A summary of the transcript of the provided YouTube video, focusing on accuracy and concise phrasing."
+context = []
+tool_ids = ["yt_transcript"]
 
 [[task]]
 id = "edit_markdown"
 agent_id = "editor"
 description = "Create a finalized Markdown note from the input materials. One is a video's transcript, and the other is a summary of that transcript."
-expected_output = "A finalized Markdown note, utilizing any features of Markdown that help communicate the information."
-context = ["fetch_transcript", "summarize_video"]
+expected_output = "A finalized Markdown note, free of errors, and utilizing any features of Markdown that help communicate the information more clearly."
+context = ["summarize_video"]
 tool_ids = []

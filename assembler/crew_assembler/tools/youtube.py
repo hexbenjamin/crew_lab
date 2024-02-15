@@ -1,13 +1,12 @@
 # from youtube_transcript_api import YouTubeTranscriptApi
 import json
 import os
-from textwrap import dedent
+from typing import Any, Tuple
 
 from dotenv import find_dotenv, load_dotenv
+from gradio_tools import GradioTool
 from langchain.tools import tool
-from pathvalidate import sanitize_filename
 from pytube import YouTube
-from rich.pretty import pprint
 
 from crew_assembler.utils import make_subdir
 
@@ -45,7 +44,7 @@ def youtube_transcript_retriever(video_url: str) -> str:
 """
 
 
-class YouTubeTools:
+class YouTubeToolsIFW:
     @tool("Fetch a YouTube link's transcript")
     def transcript_retriever(video_url: str) -> str:
         """
@@ -58,23 +57,23 @@ class YouTubeTools:
             - str, The transcript of the video.
         """
 
-        audio_path = make_subdir("tmp")
+        tmp_path = make_subdir("tmp")
 
         yt = YouTube(video_url)
 
         video = yt.streams.filter(only_audio=True).first()
-        video.download(output_path=audio_path, filename="youtube.mp3")
+        video.download(output_path=tmp_path, filename="youtube.mp3")
 
-        transcript_path = os.path.join(
-            audio_path, sanitize_filename(f"{yt.title.replace(' ', '_')}.txt")
-        )
+        transcript_path = os.path.join(tmp_path, "whisper.json")
 
         args = [
             "insanely-fast-whisper",
             "--file-name",
-            f"{audio_path}/youtube.mp3",
+            f"{tmp_path}/youtube.mp3",
             "--device-id",
             "0",
+            "--batch-size",
+            "8",
             "--transcript-path",
             transcript_path,
         ]
@@ -85,15 +84,48 @@ class YouTubeTools:
         os.system(" ".join(args))
 
         with open(transcript_path, "r") as f:
-            transcript = f.read()
+            transcript = json.loads(transcript)["text"]
 
-        transcript = json.loads(transcript)["text"]
-
-        print(
-            out_text := f"{yt.title.upper()}, by {yt.author.upper()}\n- - - - - -\n\n{transcript}\n"
+        out_text = (
+            f"{yt.title.upper()}, by {yt.author.upper()}\n- - - - - -\n\n{transcript}\n"
         )
 
-        os.remove(os.path.join(audio_path, "youtube.mp3"))
+        os.remove(os.path.join(tmp_path, "youtube.mp3"))
         # os.remove(transcript_path)
 
-        return f'The transcript of "{yt.title.upper()}", by {yt.author.upper()}, has been saved to a file at {transcript_path}.'
+        return f'The transcript of "{yt.title.upper()}", by {yt.author.upper()}, has been saved to a file at {transcript_path}.\n\nCONTENT:\n{out_text}'
+
+    @tool("Fetch a YouTube link's transcript")
+    def gradio_retriever(video_url: str) -> str:
+        """
+        Retrieve the transcript of a YouTube video.
+
+        Parameters:
+            - video_url: The URL of the YouTube video.
+
+        Returns:
+            - str, The transcript of the video.
+        """
+
+        whisper = GradioTool(
+            name="YouTube Whisper",
+            description="Transcribe a YouTube video using OpenAI's Whisper.",
+            src="SteveDigital/free-fast-youtube-url-video-to-text-using-openai-whisper",
+        )
+
+        print(whisper.run(video_url))
+
+
+class YouTubeTools(GradioTool):
+    def __init__(self):
+        super().__init__(
+            name="YouTube Whisper",
+            description="Transcribe a YouTube video using OpenAI's Whisper model",
+            src="hf-audio/whisper-large-v3",
+        )
+
+    def create_job(self, query: str):
+        return self.client.submit(query, "transcribe", api_name="/predict_2")
+
+    def postprocess(self, output: Tuple[Any] | Any) -> str:
+        return str(output[1])
