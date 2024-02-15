@@ -18,7 +18,6 @@ requests = "^2.31.0"
 huggingface-hub = { version = "^0.17.3", optional = true }
 chromadb = { version = "^0.4.22", optional = true }
 sentence-transformers = { version = "^2.3.1", optional = true }
-pymemgpt = { extras = ["local"], version = "^0.3.1", optional = true }
 # optionals:web
 duckduckgo-search = { version = "^4.4.2", optional = true }
 unstructured = { version = "^0.12.4", optional = true }
@@ -34,7 +33,7 @@ sourcery = "^1.15.0"
 rich = "^13.7.0"
 
 [tool.poetry.extras]
-memory = ["huggingface-hub", "chromadb", "sentence-transformers", "pymemgpt"]
+memory = ["huggingface-hub", "chromadb", "sentence-transformers"]
 web = ["duckduckgo-search", "unstructured"]
 youtube = [
     "youtube-transcript-api",
