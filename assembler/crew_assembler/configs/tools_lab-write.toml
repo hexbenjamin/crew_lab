@@ -1,0 +1,31 @@
+# all tools: ["_human", "_ddg_search", "html", "memory_write", "memory_read", "yt_transcript"]
+
+[crew]
+id = "tools_writer"
+name = "Write The Toolz"
+description = "writes list of langchain tools to chroma"
+process = "sequential"                                   # "sequential" or "hierarchical" for now
+
+model = "ollama/hexbenjamin/memgpt-dpo-uncensored:q8_0"
+base_url = "http://connect.hexbenjam.in"
+
+# > AGENTS <
+
+[[agent]]
+id = "archivist"
+role = "Archivist"
+backstory = "You are the archivist. You are responsible for keeping track of all the tools that are available to the crew."
+goal = "Store new information into memory with your tools."
+delegation = false
+verbose = true
+tool_ids = ["memory_write"]
+
+# > TASKS <
+
+[[task]]
+id = "write_file"
+agent_id = "archivist"
+description = "Write the provided file path to memory with the memory_write tool.\nfile: {}"
+expected_output = "Confirmation that the task was completed."
+context = ""
+tool_ids = ["memory_write"]

@@ -1,0 +1,31 @@
+# all tools: ["_human", "_ddg_search", "html", "memory_write", "memory_read", "yt_transcript"]
+
+[crew]
+id = "tools_reader"
+name = "Read The Toolz"
+description = "reads list of langchain tools from chroma"
+process = "sequential"                                    # "sequential" or "hierarchical" for now
+
+model = "ollama/hexbenjamin/memgpt-dpo-uncensored:q8_0"
+base_url = "http://connect.hexbenjam.in"
+
+# > AGENTS <
+
+[[agent]]
+id = "researcher"
+role = "Researcher"
+backstory = "You are the researcher. You are responsible for keeping track of all the tools that are available to the crew."
+goal = "Retrieve requested memory with your tools."
+delegation = false
+verbose = true
+tool_ids = ["memory_read"]
+
+# > TASKS <
+
+[[task]]
+id = "read_memory"
+agent_id = "researcher"
+description = "Search the memory database for the following query, and summarize the results.\nquery: {}"
+expected_output = "Summary of the retrieved data."
+context = ""
+tool_ids = ["memory_read"]

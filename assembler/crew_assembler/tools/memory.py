@@ -1,6 +1,7 @@
+# import os
 from textwrap import dedent
 
-from langchain.text_splitter import CharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.tools import tool
 from langchain_community.document_loaders import TextLoader
 from langchain_community.embeddings import SentenceTransformerEmbeddings
@@ -8,13 +9,14 @@ from langchain_community.vectorstores.chroma import Chroma
 
 from crew_assembler.utils import make_subdir
 
-TEXT_SPLITTER = CharacterTextSplitter(chunk_size=200, chunk_overlap=0.2)
-EMBEDDINGS = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+EMBEDDINGS: SentenceTransformerEmbeddings = SentenceTransformerEmbeddings(
+    model_name="all-MiniLM-L6-v2"
+)
 
 
-def create_chroma_instance(collection_name):
+def create_chroma_instance(collection_name: str = None):
     return Chroma(
-        collection_name=collection_name or "langchain",
+        collection_name=collection_name or "crew_memory",
         embedding_function=EMBEDDINGS,
         persist_directory=str(make_subdir("chroma")),
     )
@@ -22,7 +24,7 @@ def create_chroma_instance(collection_name):
 
 class MemoryTools:
     @tool("Store a text file into memory")
-    def embed_text(text_path: str, collection_name: str = None) -> bool:
+    def embed_text(text_path: str) -> bool:
         """
         Store a text file into memory.
 
@@ -33,11 +35,16 @@ class MemoryTools:
         Returns:
             str: True if the text file is successfully stored in memory, False otherwise.
         """
-        vec_db = create_chroma_instance(collection_name)
+
+        # collection_name = os.path.basename(text_path).split(".")[0]
+        vec_db = create_chroma_instance()
 
         try:
-            docs = TextLoader(text_path).load()
-            docs = TEXT_SPLITTER.split_documents(docs)
+            docs = TextLoader(file_path=text_path, encoding="utf-8").load()
+            splitter = RecursiveCharacterTextSplitter(
+                chunk_size=100, chunk_overlap=0.15
+            )
+            docs = splitter.split_documents(docs)
             vec_db.add_documents(docs)
             return str(True)
         except Exception as e:
@@ -45,7 +52,7 @@ class MemoryTools:
             return str(False)
 
     @tool("Query the permanent memory for a text string")
-    def similarity_search(query: str, collection_name: str = None) -> list:
+    def similarity_search(query: str) -> list:
         """
         Query the permanent memory for a text string.
 
@@ -57,7 +64,7 @@ class MemoryTools:
             list: A list of documents matching the query, along with their source and content.
         """
 
-        vec_db = create_chroma_instance(collection_name)
+        vec_db = create_chroma_instance()
 
         docs = vec_db.similarity_search(query, k=2)
 
