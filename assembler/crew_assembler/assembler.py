@@ -21,6 +21,11 @@ class Assembler:
             "base_url", "http://localhost:11434"
         )
 
+        if "api_key" in self.config_data["crew"]:
+            self.api_key = self.config_data["crew"]["api_key"]
+        else:
+            self.api_key = "no"
+
         if not self.provider or not self.model:
             raise ValueError("Model should be in the format <provider>/<model>.")
         if self.provider not in ["ollama", "openai", "hf"]:

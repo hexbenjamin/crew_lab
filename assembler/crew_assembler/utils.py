@@ -27,7 +27,11 @@ def select_llm(provider: str, model: str, base_url: str = None, api_key: str = N
         "openai": "OPENAI_API_KEY",
         "hf": "HUGGINGFACEHUB_API_TOKEN",
     }
-    api_key = api_key or os.getenv(env_vars.get(provider))
+
+    if provider not in env_vars:
+        api_key = "no"
+    else:
+        api_key = api_key or os.getenv(env_vars.get(provider))
 
     if provider == "hf":
         from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint

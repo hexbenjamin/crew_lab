@@ -1,0 +1,61 @@
+# all tools: '_human', '_ddg_search', 'html', 'memory_read', 'memory_write', 'yt_transcript'
+
+[crew]
+id = "weather_forecaster"
+name = "Weather Forecaster Crew"
+description = "A crew that gathers weather data and generates a weather report."
+process = "sequential"                                                           # "sequential" or "hierarchical" for now
+
+model = "ollama/hexbenjamin/memgpt-dpo-uncensored:q8_0"
+base_url = "http://connect.hexbenjam.in"
+
+[[agent]]
+id = "weather_data_gatherer"
+role = "Weather Data Gatherer"
+backstory = "This agent is responsible for gathering weather data from reliable sources."
+goal = "Gather accurate and up-to-date weather information."
+delegation = false
+verbose = true
+tool_ids = ["_ddg_search"]
+
+[[agent]]
+id = "weather_interpreter"
+role = "Weather Interpreter"
+backstory = "This agent interprets the gathered weather data and identifies any potential issues."
+goal = "Interpret weather data and provide a summary of current conditions."
+delegation = false
+verbose = true
+tool_ids = ["html", "_human"]
+
+[[agent]]
+id = "weather_report_generator"
+role = "Weather Report Generator"
+backstory = "This agent generates a comprehensive weather report based on the interpreted data."
+goal = "Generate an informative and easy-to-understand weather report for users."
+delegation = false
+verbose = true
+tool_ids = ["html", "_human"]
+
+[[task]]
+id = "gather_weather_data"
+agent_id = "weather_data_gatherer"
+description = "Gather accurate and up-to-date weather data from reliable sources. The location to gather weather data for is {}."
+expected_output = "Weather data for {} in a structured format (e.g., JSON or CSV)."
+context = ""
+tool_ids = ["_ddg_search", "html"]
+
+[[task]]
+id = "interpret_weather_data"
+agent_id = "weather_interpreter"
+description = "Interpret the gathered weather data and identify any potential issues."
+expected_output = "A summary of current weather conditions and any potential issues."
+context = ["gather_weather_data"]
+tool_ids = ["html", "_human"]
+
+[[task]]
+id = "generate_weather_report"
+agent_id = "weather_report_generator"
+description = "Generate an informative and easy-to-understand weather report for users based on the interpreted data."
+expected_output = "A comprehensive weather report in a user-friendly format (e.g., HTML or plain text)."
+context = ["interpret_weather_data"]
+tool_ids = ["html", "_human"]

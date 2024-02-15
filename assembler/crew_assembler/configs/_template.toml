@@ -7,10 +7,7 @@ name = ""
 description = ""
 process = "sequential" # "sequential" or "hierarchical" for now
 
-model = "ollama/HEXB-MythoMax-L2-13B:latest"
-# model = "openai/gpt-3.5-turbo"
-# model = "hf/provider/model"
-
+model = "ollama/hexbenjamin/memgpt-dpo-uncensored:q8_0"
 base_url = "http://connect.hexbenjam.in"
 
 # > AGENTS <
