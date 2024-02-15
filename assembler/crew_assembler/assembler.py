@@ -13,7 +13,7 @@ class Assembler:
         self.process = self.config_data["crew"].get("process", "sequential")
 
         model = self.config_data["crew"].get(
-            "model", "ollama/openhermes:7b-mistral-v2.5-q6_K"
+            "model", "ollama/hexbenjamin/memgpt-dpo-uncensored:q8_0"
         )
         self.provider, self.model = model.split("/", maxsplit=1)
 
@@ -36,7 +36,7 @@ class Assembler:
         )
 
         self.agentbox = AgentBox(llm=self.llm)
-        self.taskbox = TaskBox(self.user_input, self.agentbox)
+        self.taskbox = TaskBox(self.user_input, self.agentbox, self.process)
         self.agents = []
         self.tasks = []
         self.crew = None

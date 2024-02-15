@@ -8,11 +8,17 @@ from crew_assembler.tools import Registry
 
 
 class TaskBox:
-    def __init__(self, user_input: Optional[str], agentbox: AgentBox):
+    def __init__(self, user_input: Optional[str], agentbox: AgentBox, process: str):
         self.toolbox = Registry()
         self.user_input = user_input
         self.agentbox = agentbox
         self.tasks = {}
+
+        self.task_assignment = (
+            True
+            if process == "sequential"
+            else False if process == "hierarchical" else None
+        )
 
     def register_task(self, config: dict):
         description = (
@@ -20,12 +26,19 @@ class TaskBox:
             if "{}" in config["description"]
             else config["description"]
         )
+
         expected = (
             config["expected_output"].format(self.user_input)
             if "{}" in config["expected_output"]
             else config["expected_output"]
         )
-        agent = self.agentbox.agents[config["agent_id"]]
+
+        agent = self.agentbox.agents[config].get("agent_id", None)
+        if self.task_assignment and not agent:
+            raise ValueError(
+                "Agent assignment is required for sequential process. "
+                "Please provide an agent_id for the task."
+            )
 
         task = Task(
             description=dedent(description),
